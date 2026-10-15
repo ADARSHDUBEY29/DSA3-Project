@@ -1,0 +1,21 @@
+# Byte-code and compilation outputs
+bin/
+*.class
+
+# IDE and Editor settings
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Temporary scratch or log files
+*.log

@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTrack // University Academic Platform</title>
+    <link rel="stylesheet" href="style.css?v=7.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ====================================================================== -->
+    <!-- 1. DEDICATED INSTITUTIONAL AUTHENTICATION PORTAL                       -->
+    <!-- ====================================================================== -->
+    <div class="auth-wrapper" id="loginScreen">
+        <!-- Interactive Background Video: Modern Classroom Ambience -->
+        <video id="authVideoBg" class="auth-video-bg" autoplay muted loop playsinline>
+            <source src="videos/classroom.mp4" type="video/mp4">
+        </video>
+        <div class="auth-video-overlay"></div>
+
+        <div class="auth-card">
+            <!-- MacBook Titlebar Window Controls -->
+            <div class="mac-titlebar">
+                <div class="mac-window-controls">
+                    <span class="mac-dot mac-dot-close" title="Close"></span>
+                    <span class="mac-dot mac-dot-minimize" title="Minimize"></span>
+                    <span class="mac-dot mac-dot-maximize" title="Zoom"></span>
+                </div>
+                <span class="mac-window-title">EduTrack Academic Gateway &bull; v3.2</span>
+                <button class="btn-theme-pill" onclick="cycleAppTheme()" title="Switch Color Palette" style="background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:12px; padding:3px 10px; cursor:pointer; font-size:11.5px; color:var(--text-body); display:flex; align-items:center; gap:5px; font-weight:600;">
+                    🎨 <span id="loginThemeLabel">Natural Light</span>
+                </button>
+            </div>
+
+            <!-- Authentic University Background Image Banner -->
+            <div class="auth-card-banner">
+                <div class="auth-card-banner-overlay">
+                    <div class="auth-banner-content">
+                        <div class="auth-emblem-badge">ET</div>
+                        <div>
+                            <div class="auth-banner-title">EDUTRACK ACADEMY</div>
+                            <div class="auth-banner-sub">Intelligent University Academic Information System</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Segmented Role Selector -->
+            <div class="auth-role-tabs">
+                <button class="auth-tab-btn active" id="tabStudent" onclick="selectLoginRole('student')">
+                    <span>🎓</span> Student
+                </button>
+                <button class="auth-tab-btn" id="tabFaculty" onclick="selectLoginRole('faculty')">
+                    <span>👩‍🏫</span> Faculty
+                </button>
+                <button class="auth-tab-btn" id="tabDean" onclick="selectLoginRole('dean')">
+                    <span>🏛️</span> Registrar & Dean
+                </button>
+            </div>
+
+            <!-- Auth Body -->
+            <div class="auth-body">
+                
+                <!-- Student View -->
+                <div class="auth-form-view" id="formViewStudent">
+                    <div class="form-group">
+                        <label class="form-label">Select Student Account</label>
+                        <select id="loginStudentSelect" class="form-select" onchange="onStudentSelectChange(this.value)">
+                            <option value="STU-1001">ET-2026-1001 — Nova Vance (Astrophysical Mechanics &bull; CGPA: 9.85/10)</option>
+                            <option value="STU-1002">ET-2026-1002 — Lyra Thorne (Antigravity Engineering &bull; CGPA: 9.70/10)</option>
+                            <option value="STU-1003">ET-2026-1003 — Orion Drake (Quantum Informatics &bull; CGPA: 8.62/10)</option>
+                            <option value="STU-1004">ET-2026-1004 — Kaelen Cross (Orbital Logistics &bull; CGPA: 9.30/10)</option>
+                            <option value="STU-1005">ET-2026-1005 — Zara Sterling (Exosuit Bio-Tethering &bull; CGPA: 9.95/10)</option>
+                            <option value="STU-1006">ET-2026-1006 — Cassian Vane (Gravitational Field Theory &bull; CGPA: 8.00/10)</option>
+                            <option value="STU-1007">ET-2026-1007 — Astra Chen (Quantum Informatics &bull; CGPA: 9.12/10)</option>
+                            <option value="STU-1008">ET-2026-1008 — Darek Flynn (Antigravity Engineering &bull; CGPA: 9.55/10)</option>
+                            <option value="STU-1009">ET-2026-1009 — Maya Lin (Orbital Bio-Systems &bull; CGPA: 9.42/10)</option>
+                            <option value="STU-1010">ET-2026-1010 — Soren Voss (Quantum Cryptography &bull; CGPA: 8.90/10)</option>
+                            <option value="STU-1011">ET-2026-1011 — Elena Zhao (Autonomous Avionics &bull; CGPA: 9.75/10)</option>
+                            <option value="STU-1012">ET-2026-1012 — Rowan Cruz (Deep-Space Cryogenics &bull; CGPA: 8.78/10)</option>
+                        </select>
+                    </div>
+
+                    <!-- Profile Snippet -->
+                    <div class="profile-snippet-box">
+                        <div class="snippet-avatar" id="prevStuAvatar">NV</div>
+                        <div class="snippet-info">
+                            <span class="snippet-name" id="prevStuName">Nova Vance</span>
+                            <span class="snippet-desc" id="prevStuMajor">B.S. Astrophysical Mechanics &bull; Pod Alpha</span>
+                            <span class="snippet-desc" id="prevStuIdTag">ID: ET-2026-1001</span>
+                        </div>
+                        <div class="snippet-metric-badge">
+                            <span class="snippet-metric-val" id="prevStuGpa">9.85</span>
+                            <span class="snippet-metric-lbl">CGPA / 10</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Institutional Access PIN</label>
+                        <input type="password" class="form-input" value="••••••••••••" readonly>
+                    </div>
+
+                    <button class="btn-auth-submit" onclick="submitLogin('student')">
+                        <span>Launch Student Academic Workspace</span> &rarr;
+                    </button>
+                </div>
+
+                <!-- Faculty View -->
+                <div class="auth-form-view hidden" id="formViewFaculty">
+                    <div class="form-group">
+                        <label class="form-label">Select Faculty Instructor</label>
+                        <select id="loginFacultySelect" class="form-select" onchange="onFacultySelectChange(this.value)">
+                            <option value="FAC-01">Prof. Elena Rostova — Dept of Gravitational Physics</option>
+                            <option value="FAC-02">Prof. Marcus Sterling — Dept of Quantum Engineering</option>
+                            <option value="FAC-03">Prof. Sarah Vance — Dept of Orbital Architecture</option>
+                            <option value="FAC-04">Prof. Thorne Caldwell — Dept of Antigravity Propulsion</option>
+                        </select>
+                    </div>
+
+                    <div class="profile-snippet-box">
+                        <div class="snippet-avatar" style="background:#059669;" id="prevFacAvatar">ER</div>
+                        <div class="snippet-info">
+                            <span class="snippet-name" id="prevFacName">Prof. Elena Rostova</span>
+                            <span class="snippet-desc" id="prevFacDept">Dept of Gravitational Physics</span>
+                            <span class="snippet-desc" id="prevFacCourses">Qualified: GRAV-404, ASTRO-301</span>
+                        </div>
+                        <div class="snippet-metric-badge">
+                            <span class="snippet-metric-val" id="prevFacLoad" style="color:#059669;">3</span>
+                            <span class="snippet-metric-lbl">Max Load</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Institutional Access PIN</label>
+                        <input type="password" class="form-input" value="••••••••••••" readonly>
+                    </div>
+
+                    <button class="btn-auth-submit" style="background:#059669;" onclick="submitLogin('faculty')">
+                        <span>Launch Faculty Academic Workspace</span> &rarr;
+                    </button>
+                </div>
+
+                <!-- Dean View -->
+                <div class="auth-form-view hidden" id="formViewDean">
+                    <div class="profile-snippet-box">
+                        <div class="snippet-avatar" style="background:#7c3aed;">AV</div>
+                        <div class="snippet-info">
+                            <span class="snippet-name">Dr. Arthur Vance</span>
+                            <span class="snippet-desc">Dean of Academic Affairs & Registrar</span>
+                            <span class="snippet-desc">Office of Academic Governance</span>
+                        </div>
+                        <div class="snippet-metric-badge">
+                            <span class="snippet-metric-val" style="color:#7c3aed;">TIER 1</span>
+                            <span class="snippet-metric-lbl">Clearance</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Executive Administrative Passcode</label>
+                        <input type="password" class="form-input" value="••••••••••••" readonly>
+                    </div>
+
+                    <button class="btn-auth-submit" style="background:#7c3aed;" onclick="submitLogin('dean')">
+                        <span>Launch Registrar & Dean Center</span> &rarr;
+                    </button>
+                </div>
+
+                <div class="auth-footer-note">
+                    <span>🛡️ Institutional Verification Powered by Miller-Rabin 64-bit Engine</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ====================================================================== -->
+    <!-- 2. MAIN ACADEMIC DASHBOARD APPLICATION                                 -->
+    <!-- ====================================================================== -->
+    <div class="app-root hidden" id="dashboardScreen">
+
+        <!-- Optional Ambient Video Background Canvas for Dashboard (Disabled by default for maximum readability) -->
+        <div id="ambientVideoWrapper" class="ambient-video-wrapper">
+            <video id="dashboardVideo" class="dashboard-video-bg" muted loop playsinline>
+                <source src="videos/campus.mp4" type="video/mp4">
+            </video>
+            <div class="dashboard-video-overlay"></div>
+        </div>
+
+        <!-- Top Header Navigation Bar -->
+        <header class="top-navbar">
+            <div class="navbar-brand-section">
+                <button class="btn-menu-toggle" onclick="toggleSidebar()" title="Toggle Sidebar Navigation">☰</button>
+                <div class="brand-emblem-small">ET</div>
+                <div class="brand-title-wrap">
+                    <span class="brand-title-text">EDUTRACK</span>
+                    <span class="brand-caption" id="navRoleCaption">STUDENT ACADEMIC PORTAL</span>
+                </div>
+            </div>
+
+            <!-- Intelligent Universal Search Bar -->
+            <div class="navbar-search-section">
+                <div class="search-input-wrapper" id="headerSearchWrapper">
+                    <span class="search-icon-adornment">🔍</span>
+                    <input type="text" id="headerGlobalSearch" class="search-input-field" 
+                           placeholder="Search courses, library syllabus, exams... (Typo Tolerant)" 
+                           oninput="onHeaderSearch(this.value)"
+                           onfocus="onHeaderSearchFocus()"
+                           onkeydown="onHeaderSearchKeydown(event)"
+                           autocomplete="off">
+                    <button class="search-clear-btn hidden" id="headerSearchClearBtn" onclick="clearHeaderSearch()" title="Clear Search">✕</button>
+                    <!-- Floating Universal Search Dropdown -->
+                    <div id="headerSearchDropdown" class="header-search-dropdown hidden"></div>
+                </div>
+            </div>
+
+            <!-- Header Action Controls -->
+            <div class="navbar-actions-section">
+                <!-- Theme Palette Switcher -->
+                <button class="btn-theme-toggle" id="btnThemeToggle" onclick="cycleAppTheme()" title="Switch Color Palette">
+                    🎨 <span id="themeToggleLabel">Natural Light</span>
+                </button>
+
+                <!-- Video Ambience Controller -->
+                <div class="video-ambient-control">
+                    <button class="btn-ambient-toggle" id="btnToggleVideo" onclick="cycleVideoAmbience()" title="Switch Ambient Background Video">
+                        🎬 <span id="currentVideoLabel">Campus View</span>
+                    </button>
+                    <button class="btn-ambient-play" id="btnPlayPauseVideo" onclick="toggleVideoPlayback()" title="Pause/Play Background Video">
+                        ⏸️
+                    </button>
+                </div>
+
+                <button class="btn-dsa-overview" style="background:var(--brand-primary); color:#ffffff; border-color:var(--brand-primary);" onclick="switchNavSection('algo-lab')">
+                    🔬 Algorithm Lab (M1–M6)
+                </button>
+                <button class="btn-dsa-overview" onclick="toggleDsaMatrix()">
+                    ⚡ DSA Matrix (24)
+                </button>
+
+                <div class="user-identity-badge" onclick="switchAccountPrompt()" title="Click to Switch User">
+                    <div class="user-avatar-initials" id="navAvatarInitials">NV</div>
+                    <span class="user-tagline" id="navUserBadgeId">ET-2026-1001</span>
+                </div>
+
+                <button class="btn-signout-minimal" onclick="logout()">
+                    Sign Out
+                </button>
+            </div>
+        </header>
+
+        <!-- Container: Sidebar + Content Canvas -->
+        <div class="app-container-layout">
+
+            <!-- Left Navigation Sidebar -->
+            <aside class="app-sidebar" id="appSidebar">
+                <ul class="nav-menu-list" id="sidebarNavMenu">
+                    <!-- Populated dynamically per active role -->
+                </ul>
+            </aside>
+
+            <!-- Main Application Canvas -->
+            <main class="app-workspace">
+                
+                <!-- ========================================================== -->
+                <!-- WORKSPACE A: STUDENT PORTAL WORKSPACE                      -->
+                <!-- ========================================================== -->
+                <div id="workspaceStudent" class="role-workspace">
+                    
+                    <!-- Student Hero Banner -->
+                    <div class="academic-hero-banner">
+                        <div>
+                            <h2 class="hero-welcome-title" id="stuHeroName">Welcome, Nova Vance</h2>
+                            <p class="hero-welcome-sub" id="stuHeroSub">B.S. Astrophysical Mechanics &bull; Semester VI &bull; Station Alpha</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div class="hero-video-chip" onclick="cycleVideoAmbience()" title="Click to Switch Camera Feed">
+                                <span class="live-pulse-dot"></span>
+                                <span>Live Studio: <strong id="stuFeedText">Orbital Quad Concourse</strong></span>
+                            </div>
+                            <div class="hero-date-badge">
+                                Academic Year 2026-27 &bull; Spring Term
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student KPI Cards -->
+                    <div class="metric-kpi-grid">
+                        <div class="kpi-card" onclick="switchNavSection('courses')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-blue">📚</div>
+                                <span class="kpi-chip-status badge-blue-chip">5 Enrolled</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number" id="stuKpiCredits">78 / 120</div>
+                                <div class="kpi-label">Completed Degree Credits</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('cgpa')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-emerald">🏆</div>
+                                <span class="kpi-chip-status badge-emerald-chip" id="stuKpiHonors">Highest Distinction (Top Honors)</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number" id="stuKpiGpa">9.85 / 10.0</div>
+                                <div class="kpi-label">Cumulative GPA (10.0 Scale) & Transcripts</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('courses')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-amber">📅</div>
+                                <span class="kpi-chip-status badge-amber-chip">Regular Standing</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number">96.4%</div>
+                                <div class="kpi-label">Studio & Lecture Attendance</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('exams')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-violet">📑</div>
+                                <span class="kpi-chip-status badge-violet-chip">DPLL Cleared</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number">Conflict-Free</div>
+                                <div class="kpi-label">Examination Timetable</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 1: Student Courses & Catalog (Optimal BST) -->
+                    <div class="academic-panel" id="section-courses">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>📚</span>
+                                <div>
+                                    <h3>My Registered Courses & Classrooms</h3>
+                                    <p>Organized via Optimal Binary Search Tree for rapid schedule lookup</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Algorithm: Optimal BST (O(log n))</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="academic-table-wrap">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course Code</th>
+                                            <th>Course Title</th>
+                                            <th>Credits</th>
+                                            <th>Classroom / Pod</th>
+                                            <th>Exam Slot</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentCoursesBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top:20px;">
+                                <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">All Available Courses Catalog (10 Courses)</h4>
+                                <div class="academic-table-wrap">
+                                    <table class="academic-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Course Title</th>
+                                                <th>Credits</th>
+                                                <th>Required Pod Facility</th>
+                                                <th>Exam Slot</th>
+                                                <th>Enrollment</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="allCoursesCatalogBody">
+                                            <!-- Dynamic JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 2: Academic Activities & Practicums -->
+                    <div class="academic-panel" id="section-activities">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>🎯</span>
+                                <div>
+                                    <h3>Academic Activities & Extracurricular Practicums</h3>
+                                    <p>University workshops, zero-G simulation hackathons, and research symposiums</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Domain: Co-Curricular & Research Operations</span>
+                        </div>
+                        <div class="panel-body">
+                            <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">
+                                Engage in specialized research symposiums, hackathons, and zero-G field trials to earn supplementary academic distinction credits.
+                            </p>
+                            <div class="activities-grid" id="activitiesContainer">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 3: Assignments & Originality Pre-Screening -->
+                    <div class="academic-panel" id="section-submissions">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>✍️</span>
+                                <div>
+                                    <h3>Assignments & Research Paper Records</h3>
+                                    <p>Submission deadlines, grading scores, and Suffix Structure originality pre-screening</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Suffix Array (SAIS) &bull; Kasai LCP &bull; Suffix Automaton</span>
+                        </div>
+                        <div class="panel-body">
+                            <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">My Course Assignments Record</h4>
+                            <div class="academic-table-wrap" style="margin-bottom:20px;">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Course</th>
+                                            <th>Assignment Title</th>
+                                            <th>Due Date</th>
+                                            <th>Weight</th>
+                                            <th>Score</th>
+                                            <th>Similarity (LCP)</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="assignmentsRecordBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:6px;">Originality Pre-Screening Tool</h4>
+                            <p style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">
+                                Pre-screen drafts against the institutional repository before submitting for formal evaluation.
+                            </p>
+                            <textarea id="subPaperContent" class="textarea-editor" placeholder="Paste research abstract or assignment draft here..."></textarea>
+                            <div style="display:flex; gap:8px; margin-bottom:12px;">
+                                <button class="btn-table-action" onclick="loadSampleText('original')">Load Original Paper</button>
+                                <button class="btn-table-action" onclick="loadSampleText('collusion')">Load Flagged Draft</button>
+                                <button class="btn-table-action" style="background:var(--brand-primary); color:#ffffff; border-color:var(--brand-primary);" onclick="runStudentPlagiarismCheck()">Screen Originality</button>
+                            </div>
+                            <div class="report-display-card hidden" id="studentOriginalityReport"></div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 4: Examination Records & Hall Ticket (DPLL SAT & Miller-Rabin) -->
+                    <div class="academic-panel" id="section-exams">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>📑</span>
+                                <div>
+                                    <h3>Examination Records & Official Hall Ticket</h3>
+                                    <p>Conflict-free examination timetable validated by DPLL SAT & Miller-Rabin Cryptography</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">DPLL SAT Solver &bull; Miller-Rabin Primality</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="academic-table-wrap">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Exam Code</th>
+                                            <th>Course</th>
+                                            <th>Examination Date</th>
+                                            <th>Time Slot</th>
+                                            <th>Assigned Facility / Pod</th>
+                                            <th>Seat No.</th>
+                                            <th>SAT Status</th>
+                                            <th>Crypto Verification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="examTimetableBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top:14px; padding:10px 14px; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:var(--radius-sm); font-size:12px; color:#065f46; display:flex; align-items:center; gap:8px;">
+                                <span>🛡️</span>
+                                <div>
+                                    <strong>Institutional Verification Confirmed:</strong> Zero examination timetable collisions detected across all courses via DPLL SAT Solver. Cryptographic hall ticket tokens verified via 64-bit Miller-Rabin primality engine.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 5: Learning Resources & Digital Documents -->
+                    <div class="academic-panel" id="section-resources">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>📖</span>
+                                <div>
+                                    <h3>Learning Resources, Syllabi & Document Library</h3>
+                                    <p>Textbooks, lecture slide decks, laboratory manuals, and research preprints</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Indexing: Suffix Arrays &bull; Suffix Automaton &bull; Aho-Corasick</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="resources-grid" id="learningResourcesContainer">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 6: Academic Schedules & Resource Allocations -->
+                    <div class="academic-panel" id="section-schedule">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>🗓️</span>
+                                <div>
+                                    <h3>Weekly Academic Schedules & Campus Resource Allocations</h3>
+                                    <p>Weekly lecture timetable, pod spatial allocation, and transit network flow</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Dinic Max Flow &bull; Edmonds-Karp &bull; Ford-Fulkerson</span>
+                        </div>
+                        <div class="panel-body">
+                            <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">Weekly Academic Timetable (Spring Term 2026-27)</h4>
+                            <div class="schedule-table-wrap">
+                                <table class="schedule-grid-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time Slot</th>
+                                            <th>Monday</th>
+                                            <th>Tuesday</th>
+                                            <th>Wednesday</th>
+                                            <th>Thursday</th>
+                                            <th>Friday</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="weeklyTimetableBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top:20px;">
+                                <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">Campus Spatial Resource Allocations & Pod Infrastructure</h4>
+                                <div class="academic-table-wrap">
+                                    <table class="academic-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Pod Identifier</th>
+                                                <th>Facility Name</th>
+                                                <th>Pod Type</th>
+                                                <th>Capacity</th>
+                                                <th>Artificial Gravity</th>
+                                                <th>Power Grid Units</th>
+                                                <th>Network Flow Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="resourceAllocationsBody">
+                                            <!-- Dynamic JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 7: Continuous Student & Academic Activity Stream -->
+                    <div class="academic-panel" id="section-telemetry">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>📡</span>
+                                <div>
+                                    <h3>Continuous Student & Academic Activity Stream</h3>
+                                    <p>Live real-time campus activity logging and environmental sensor telemetry</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Reservoir Sampling &bull; Blelloch Scan &bull; Live Telemetry</span>
+                        </div>
+                        <div class="panel-body">
+                            <!-- Telemetry Dashboard Strip -->
+                            <div class="telemetry-dashboard-strip">
+                                <div class="telemetry-stat-tile">
+                                    <div class="telemetry-tile-label">Pod Gravity Flux</div>
+                                    <div class="telemetry-tile-value" id="tileGravity">0.03 G</div>
+                                </div>
+                                <div class="telemetry-stat-tile">
+                                    <div class="telemetry-tile-label">Atmospheric O2</div>
+                                    <div class="telemetry-tile-value" id="tileO2" style="color:var(--color-emerald);">98.4%</div>
+                                </div>
+                                <div class="telemetry-stat-tile">
+                                    <div class="telemetry-tile-label">Cognitive Focus Index</div>
+                                    <div class="telemetry-tile-value" id="tileCogLoad" style="color:var(--color-violet);">0.45 / 1.0</div>
+                                </div>
+                                <div class="telemetry-stat-tile">
+                                    <div class="telemetry-tile-label">Micro-Transit Burn</div>
+                                    <div class="telemetry-tile-value" id="tileEnergy" style="color:var(--color-amber);">1,420.5 J</div>
+                                </div>
+                            </div>
+
+                            <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">Live Academic Activity Event Stream</h4>
+                            <div class="activity-stream-container" id="activityStreamContainer">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 8: Student Academic Standings & CGPA (10.0 Scale) -->
+                    <div class="academic-panel" id="section-cgpa">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>📊</span>
+                                <div>
+                                    <h3>My Academic Standings & CGPA (10.0 Scale)</h3>
+                                    <p>Cohort ranking via Randomized QuickSort and parallel credit aggregation</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Randomized QuickSort &bull; Parallel Reduce &bull; Blelloch Scan</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="academic-table-wrap">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Cohort Rank</th>
+                                            <th>Student Scholar</th>
+                                            <th>Degree Program</th>
+                                            <th>Cumulative CGPA (Out of 10.0)</th>
+                                            <th>Academic Distinction</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentLeaderboardBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- ========================================================== -->
+                <!-- WORKSPACE B: FACULTY ACADEMIC WORKSPACE                    -->
+                <!-- ========================================================== -->
+                <div id="workspaceFaculty" class="role-workspace hidden">
+                    
+                    <!-- Faculty Hero Banner -->
+                    <div class="academic-hero-banner" style="border-left: 4px solid var(--color-emerald);">
+                        <div>
+                            <h2 class="hero-welcome-title" id="facHeroName">Welcome, Prof. Elena Rostova</h2>
+                            <p class="hero-welcome-sub" id="facHeroSub">Department of Gravitational Physics &bull; Faculty Instructor & Supervisor</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div class="hero-video-chip" onclick="cycleVideoAmbience()" title="Click to Switch Camera Feed">
+                                <span class="live-pulse-dot"></span>
+                                <span>Live Lecture: <strong id="facFeedText">Central Observatory</strong></span>
+                            </div>
+                            <div class="hero-date-badge" style="color:var(--color-emerald); background:var(--color-emerald-bg);">
+                                Teaching Term 2026-27 &bull; Active Faculty Load
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Faculty KPI Cards -->
+                    <div class="metric-kpi-grid">
+                        <div class="kpi-card" onclick="switchNavSection('fac-matching')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-emerald">👨‍🏫</div>
+                                <span class="kpi-chip-status badge-emerald-chip">Hopcroft-Karp</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number" id="facKpiLoad">3 Assigned / 3 Max</div>
+                                <div class="kpi-label">Teaching Course Allocations</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('fac-roster')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-blue">👥</div>
+                                <span class="kpi-chip-status badge-blue-chip">Enrolled</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number">42 Scholars</div>
+                                <div class="kpi-label">Supervised Course Students</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('fac-audit')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-rose">🛡️</div>
+                                <span class="kpi-chip-status badge-rose-chip">Integrity Alert</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number" style="color:#FF5C77;">1 Collusion Detected</div>
+                                <div class="kpi-label">Cross-Paper Plagiarism Audit</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('fac-research')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-violet">🔬</div>
+                                <span class="kpi-chip-status badge-violet-chip">Certified</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number">H-Index 18</div>
+                                <div class="kpi-label">Faculty Research Impact</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Faculty Panel 1: Teaching Load & Course Staffing (Hopcroft-Karp) -->
+                    <div class="academic-panel" id="section-fac-matching">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>👨‍🏫</span>
+                                <div>
+                                    <h3>Teaching Course Allocation & Staffing Schedule</h3>
+                                    <p>Maximal bipartite matching matching faculty qualifications to curriculum courses</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Hopcroft-Karp O(E&radic;V) &bull; Maximum Bipartite Matching</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="academic-table-wrap">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Faculty Member</th>
+                                            <th>Academic Department</th>
+                                            <th>Matched Teaching Course</th>
+                                            <th>Allocation Method</th>
+                                            <th>Course Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="facAllocationBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Faculty Panel 2: Department-Wide Assignment Collusion Auditor (Suffix Automaton & Kasai LCP) -->
+                    <div class="academic-panel" id="section-fac-audit">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>🛡️</span>
+                                <div>
+                                    <h3>Student Batch Plagiarism & Collusion Auditor</h3>
+                                    <p>Cross-paper pairwise comparison via generalized Suffix Array and Kasai LCP</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Kasai LCP &bull; Suffix Automaton DAWG &bull; Z-Algorithm</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:8px; padding:16px; margin-bottom:16px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                    <strong style="color:#9f1239; font-size:14px;">⚠️ Academic Collusion Flagged: Paper #104 vs Paper #208</strong>
+                                    <span class="status-pill" style="background:#fee2e2; color:#9f1239;">37.5% Exact Phrase Overlap</span>
+                                </div>
+                                <p style="font-size:12.5px; color:#4c0519; margin-bottom:8px;">
+                                    Kasai's algorithm identified an identical phrase of <strong>57 continuous characters</strong> between two independent student submissions.
+                                </p>
+                                <div style="background:#ffffff; border:1px solid #fda4af; border-radius:4px; padding:10px; font-family:var(--font-code); font-size:12px; color:#881337; margin-bottom:12px;">
+                                    "relativistic mechanics dictate zero-G orbital drift inside the graviton field"
+                                </div>
+                                <div style="display:flex; gap:10px;">
+                                    <button class="btn-table-action" style="background:#be123c; color:#ffffff; border-color:#be123c;" onclick="alert('Formal Academic Integrity inquiry opened for involved students.')">Issue Academic Inquiry</button>
+                                    <button class="btn-table-action" onclick="alert('Submission flagged for Faculty Senate Review.')">Schedule Review Hearing</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Faculty Panel 3: Enrolled Scholars Gradebook & Cohort Performance -->
+                    <div class="academic-panel" id="section-fac-roster">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>📋</span>
+                                <div>
+                                    <h3>Enrolled Scholars Gradebook & Performance Roster</h3>
+                                    <p>Academic performance sorted by Randomized QuickSort (Expected O(N log N))</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Randomized QuickSort &bull; Parallel Reduce</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="academic-table-wrap">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Rank</th>
+                                            <th>Student Scholar</th>
+                                            <th>Cumulative GPA</th>
+                                            <th>Degree Progress</th>
+                                            <th>Academic Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="facStudentRosterBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Faculty Panel 4: Supervisor Specialization & Coverage (König's Theorem) -->
+                    <div class="academic-panel" id="section-fac-research">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>🔬</span>
+                                <div>
+                                    <h3>Curriculum Staffing Duality & Minimum Conflict Cover</h3>
+                                    <p>König's theorem duality metrics proving complete teaching coverage</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">K&ouml;nig's Theorem: |Max Matching| == |Min Vertex Cover|</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;">
+                                <div style="padding:14px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:8px; text-align:center;">
+                                    <div style="font-size:24px; font-weight:800; color:var(--brand-primary);" id="facKonigMatching">4</div>
+                                    <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Maximum Course Matches</div>
+                                </div>
+                                <div style="padding:14px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:8px; text-align:center;">
+                                    <div style="font-size:24px; font-weight:800; color:var(--color-emerald);" id="facKonigCover">4</div>
+                                    <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Minimum Vertex Cover</div>
+                                </div>
+                                <div style="padding:14px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:8px; text-align:center;">
+                                    <div style="font-size:24px; font-weight:800; color:var(--color-violet);" id="facKonigIndSet">5</div>
+                                    <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Max Independent Set</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- ========================================================== -->
+                <!-- WORKSPACE C: REGISTRAR & DEAN GOVERNANCE COMMAND           -->
+                <!-- ========================================================== -->
+                <div id="workspaceDean" class="role-workspace hidden">
+                    
+                    <!-- Dean Hero Banner -->
+                    <div class="academic-hero-banner" style="border-left: 4px solid var(--color-violet);">
+                        <div>
+                            <h2 class="hero-welcome-title">Welcome, Dr. Arthur Vance</h2>
+                            <p class="hero-welcome-sub">Dean of Academic Affairs & Registrar &bull; Institutional Governance Command</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div class="hero-video-chip" onclick="cycleVideoAmbience()" title="Click to Switch Camera Feed">
+                                <span class="live-pulse-dot"></span>
+                                <span>Campus Stream: <strong id="deanFeedText">Station Perimeter Stream</strong></span>
+                            </div>
+                            <div class="hero-date-badge" style="color:var(--color-violet); background:var(--color-violet-bg);">
+                                Master Clearance Level 1 &bull; Station Alpha Command
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dean KPI Cards -->
+                    <div class="metric-kpi-grid">
+                        <div class="kpi-card" onclick="switchNavSection('dean-census')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-violet">🏛️</div>
+                                <span class="kpi-chip-status badge-violet-chip">Census</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number">1,280 Scholars</div>
+                                <div class="kpi-label">Total Campus Enrollment</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('dean-sat')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-emerald">📑</div>
+                                <span class="kpi-chip-status badge-emerald-chip">SAT Validated</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number" style="color:#34D399;">100% Conflict-Free</div>
+                                <div class="kpi-label">Exam Timetable Satisfiability</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('dean-transit')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-blue">🌊</div>
+                                <span class="kpi-chip-status badge-blue-chip">Dinic Network</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number" id="deanKpiFlow">145 / Hr</div>
+                                <div class="kpi-label">Corridor Student Flow Flux</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" onclick="switchNavSection('dean-pod-tour')">
+                            <div class="kpi-top-row">
+                                <div class="kpi-icon-badge badge-amber">🗺️</div>
+                                <span class="kpi-chip-status badge-amber-chip">Bitmask DP</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <div class="kpi-number" id="deanKpiFuel">410 J Fuel</div>
+                                <div class="kpi-label">Facility Inspection Tour</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dean Panel 1: Station-Wide Exam Timetable Satisfiability (DPLL SAT Solver) -->
+                    <div class="academic-panel" id="section-dean-sat">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>📑</span>
+                                <div>
+                                    <h3>Master Examination Timetable & SAT Constraint Solver</h3>
+                                    <p>NP-Complete timetabling solved via Davis-Putnam-Logemann-Loveland boolean backtracking</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">DPLL SAT Solver &bull; Karp Reductions</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:14px; margin-bottom:16px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <strong style="color:#166534; font-size:13.5px;">✓ Boolean Satisfiability Status: SATISFIABLE</strong>
+                                    <span class="status-pill success">Zero Pod/Slot Collisions</span>
+                                </div>
+                                <p style="font-size:12px; color:#14532d; margin-top:4px;">
+                                    Unit propagation and pure literal elimination verified no student is assigned two exams in the same timeslot or drifting pod.
+                                </p>
+                            </div>
+                            <div class="academic-table-wrap">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course Code</th>
+                                            <th>Assigned Examination Slot</th>
+                                            <th>Lecture Facility / Pod</th>
+                                            <th>DPLL Clause Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="deanExamTimetableBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top:14px; font-size:12px; color:var(--text-muted); background:var(--bg-subtle); padding:10px 14px; border-radius:6px; border:1px solid var(--border-light);">
+                                <strong>Karp Reduction Graph Metric:</strong> 3-SAT (4 clauses) &rarr; CLIQUE (12 vertices, 38 edges) &rarr; INDEPENDENT SET &rarr; VERTEX COVER (Approx Size: 8)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dean Panel 2: Campus Spatial Transit Flux (Dinic's Max Flow) -->
+                    <div class="academic-panel" id="section-dean-transit">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>🌊</span>
+                                <div>
+                                    <h3>Campus Spatial Resource Conduits & Transit Flux</h3>
+                                    <p>Maximum student transit flux across pressurized airlocks and corridors</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Dinic's Algorithm O(V&sup2;E) &bull; Edmonds-Karp BFS</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                                <div style="padding:16px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:8px;">
+                                    <h4 style="font-size:13.5px; margin-bottom:8px;">Dinic Blocking Flow Optimization</h4>
+                                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">Max students routed simultaneously without airlock bottlenecking:</p>
+                                    <div style="font-size:28px; font-weight:800; color:var(--brand-primary);"><span id="deanAirlockMax">145</span> Students / Hr</div>
+                                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:6px;">Level graph construction phases: <strong>4 phases</strong></div>
+                                </div>
+                                <div style="padding:16px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:8px;">
+                                    <h4 style="font-size:13.5px; margin-bottom:8px;">Airlock Safety Threshold</h4>
+                                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">Pressure status across Main Hub &rarr; Lecture Pods Alpha/Beta/Gamma:</p>
+                                    <div style="font-size:28px; font-weight:800; color:var(--color-emerald);">100% Nominal</div>
+                                    <div style="font-size:11.5px; color:var(--text-muted); margin-top:6px;">Zero emergency pressure drops logged</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dean Panel 3: Facility Inspection Tour (Bitmask DP Traveling Dean) -->
+                    <div class="academic-panel" id="section-dean-pod-tour">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>🗺️</span>
+                                <div>
+                                    <h3>Executive Facility & Drifting Pod Tour Optimization</h3>
+                                    <p>Traveling Dean Problem: Solved via Bitmask Dynamic Programming in O(N² · 2ᴺ)</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Bitmask DP &bull; Traveling Salesman Problem (TSP)</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="padding:16px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:8px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                                    <strong>Optimal Inspection Route Across Drifting Pods:</strong>
+                                    <span class="status-pill success" id="deanFuelPill">410 Joules Fuel</span>
+                                </div>
+                                <div id="deanTourPath" style="font-size:13px; font-weight:600; color:var(--brand-primary); margin-bottom:8px;">
+                                    Pod Alpha &rarr; Pod Beta &rarr; Pod Gamma &rarr; Pod Delta &rarr; Pod Epsilon &rarr; Central Hub
+                                </div>
+                                <p style="font-size:12px; color:var(--text-muted);">
+                                    Calculates the globally minimal thruster propellant cost required for the Registrar to inspect all 5 drifting floating academic pods.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dean Panel 4: Institutional Parallel Analytics & Compute Efficiency -->
+                    <div class="academic-panel" id="section-dean-parallel">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>⚡</span>
+                                <div>
+                                    <h3>Campus-Wide Parallel Compute & Analytics Engine</h3>
+                                    <p>ForkJoin Parallel Reduce & Brent's Theorem Theoretical Speedup</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Brent's Theorem &bull; ForkJoin Parallel Reduce &bull; Blelloch Scan</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
+                                <div style="padding:12px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:6px; text-align:center;">
+                                    <div style="font-size:18px; font-weight:800; color:var(--brand-primary);" id="deanAvgGpa">3.71</div>
+                                    <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Campus Mean GPA</div>
+                                </div>
+                                <div style="padding:12px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:6px; text-align:center;">
+                                    <div style="font-size:18px; font-weight:800; color:var(--color-emerald);" id="deanMaxSpeedup">3.85x</div>
+                                    <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Parallel Speedup (p=4)</div>
+                                </div>
+                                <div style="padding:12px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:6px; text-align:center;">
+                                    <div style="font-size:18px; font-weight:800; color:var(--color-sky);">96.2%</div>
+                                    <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Compute Efficiency</div>
+                                </div>
+                                <div style="padding:12px; background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:6px; text-align:center;">
+                                    <div style="font-size:18px; font-weight:800; color:var(--color-violet);">O(log N)</div>
+                                    <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Span / Depth</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dean Panel 5: Institutional Faculty Census -->
+                    <div class="academic-panel" id="section-dean-census">
+                        <div class="panel-header">
+                            <div class="panel-title-area">
+                                <span>👥</span>
+                                <div>
+                                    <h3>Campus Faculty Census & Curriculum Staffing Ratios</h3>
+                                    <p>Comprehensive audit of faculty appointments, qualifications, and department coverage</p>
+                                </div>
+                            </div>
+                            <span class="dsa-algorithm-tag">Bipartite Matching &bull; K&ouml;nig's Theorem</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="academic-table-wrap">
+                                <table class="academic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Faculty Instructor</th>
+                                            <th>Department</th>
+                                            <th>Maximum Teaching Load</th>
+                                            <th>Certified Disciplines</th>
+                                            <th>Staffing Ratio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="deanFacultyCensusBody">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- WORKSPACE D: INTERACTIVE ALGORITHM LAB & VISUALIZER        -->
+                <!-- ========================================================== -->
+                <div id="workspaceAlgoLab" class="role-workspace hidden">
+                    
+                    <div class="academic-hero-banner" style="margin-bottom:20px; background:var(--ts-surface); border:1px solid var(--ts-border); border-radius:14px; padding:20px 24px;">
+                        <div>
+                            <h2 class="hero-welcome-title" style="color:var(--ts-text-primary); font-size:20px; font-weight:700;">⚡ Interactive Algorithm Lab & Visualizer Studio</h2>
+                            <p class="hero-welcome-sub" style="color:var(--ts-text-secondary); font-size:13px; margin-top:4px;">Step-by-step interactive tracing of 24 classical & advanced algorithms across Modules M1–M6</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <button class="btn-table-action" onclick="toggleDsaMatrix()">📋 View Full 24 DSA Matrix</button>
+                        </div>
+                    </div>
+
+                    <div class="algo-studio-panel">
+                        <!-- Module Selection Tabs -->
+                        <div class="algo-mod-tabs" id="algoModuleTabs">
+                            <!-- Populated dynamically by AlgoStudio.init() -->
+                        </div>
+
+                        <!-- Active Module's Algorithm Chips -->
+                        <div class="algo-chips-row" id="algoSelectList">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <!-- Algorithm Header & Problem Statement -->
+                        <div class="algo-hero-box">
+                            <div class="algo-hero-top">
+                                <h3 class="algo-hero-title" id="algoHeaderTitle">Algorithm Name</h3>
+                                <span class="algo-complexity-pill" id="algoHeaderBadge">O(N)</span>
+                            </div>
+                            <p class="algo-problem-p" id="algoProblemStatement">Problem description</p>
+                            <div style="font-size:11.5px; font-family:var(--font-code); color:var(--brand-accent);" id="algoComplexityTag">Complexity: O(...)</div>
+                        </div>
+
+                        <!-- Algorithm View Container (Active algorithm panel) -->
+                        <div id="algoPanelView">
+                            <!-- Input Controls Card (TravelSync INPUT Card) -->
+                            <div class="algo-inputs-card">
+                                <div class="ts-section-title">INPUT</div>
+                                <div class="algo-inputs-grid" id="algoInputFields">
+                                    <!-- Dynamic Inputs -->
+                                </div>
+                                <div class="algo-inputs-actions">
+                                    <button class="btn-player" onclick="AlgoStudio.loadDemoData()">✦ Generate Demo Data</button>
+                                    <button class="btn-player primary" onclick="AlgoStudio.execute()">▶ Recompute &amp; Trace</button>
+                                </div>
+                            </div>
+
+                            <!-- Stepper Playback Controls Bar with Moving Slider (TravelSync Controls Row) -->
+                            <div class="stepper-bar">
+                                <div class="stepper-buttons-group">
+                                    <button class="btn-player primary" id="btnPlayerPlay" onclick="AlgoStudio.play()">▶ Run</button>
+                                    <button class="btn-player" onclick="AlgoStudio.previous()">◂ Back</button>
+                                    <button class="btn-player" onclick="AlgoStudio.next()">Step ▸</button>
+                                    <button class="btn-player" onclick="AlgoStudio.reset()">↺ Reset</button>
+                                    <button class="btn-player" id="btnPlayerFastEnd" onclick="AlgoStudio.jumpToEnd()" title="Jump to Final Step & Reveal Results">⏭ End</button>
+                                </div>
+                                <div class="stepper-telemetry-group">
+                                    <div class="stepper-speed-selector">
+                                        <span>Speed:</span>
+                                        <input type="range" min="0.25" max="3" step="0.25" value="1" style="width:70px;" oninput="AlgoStudio.setSpeed(this.value)">
+                                        <strong id="algoSpeedDisplay">1.0x</strong>
+                                    </div>
+                                    <div class="stepper-counter-tag" id="algoStepCounter">Step 0 of 0</div>
+                                </div>
+                                
+                                <!-- Interactive Live Step Slider (Synchronously advances as visualization plays) -->
+                                <div class="stepper-slider-container">
+                                    <div class="stepper-slider-labels">
+                                        <span class="stepper-sublabel">Step 1 (Start)</span>
+                                        <span class="stepper-live-step" id="algoStepSliderLabel">Step 1 of 0</span>
+                                        <span class="stepper-sublabel" id="algoStepSliderMax">Step 0 (Final Result)</span>
+                                    </div>
+                                    <div class="stepper-slider-wrapper">
+                                        <input type="range" id="algoStepSlider" class="stepper-range-slider" min="0" max="0" value="0" step="1" oninput="AlgoStudio.seekTo(this.value)" title="Scrub through visualization steps">
+                                        <div class="stepper-progress-fill" id="algoStepProgress"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Visualization Card (TravelSync VISUALIZATION Card) -->
+                            <div class="viz-card-container">
+                                <div class="ts-section-title">VISUALIZATION</div>
+                                <div class="viz-canvas-wrapper" id="algoCanvas">
+                                    <!-- Visualizer DOM / Canvas renders here -->
+                                </div>
+                                <!-- TravelSync Step Explanation Callout Bar (inside visualization card) -->
+                                <div class="explanation" id="algoStepExplanation">
+                                    Press <strong>▶ Run</strong> to auto-play or <strong>Step ▸</strong> to step through execution.
+                                </div>
+                            </div>
+
+                            <!-- Results & Complexity Metrics Card (TravelSync RESULT Card) -->
+                            <div class="algo-result-card">
+                                <div class="ts-section-title">RESULT</div>
+                                <table class="ts-result-table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="ts-result-key">Result:</td>
+                                            <td class="ts-result-val" id="algoResultOutput" style="color:var(--ts-teal); font-weight:700;">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ts-result-key">Complexity:</td>
+                                            <td class="ts-result-val" id="algoResultComplexity">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ts-result-key">Comparisons:</td>
+                                            <td class="ts-result-val" id="algoResultComparisons">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ts-result-key">Iterations:</td>
+                                            <td class="ts-result-val" id="algoResultIterations">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ts-result-key">Execution info:</td>
+                                            <td class="ts-result-val" id="algoResultInfo" style="color:var(--ts-text-secondary);">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Algorithm Explorer View (TravelSync Explorer Page) -->
+                        <div id="algoExplorerView" class="algo-explorer-container hidden">
+                            <div class="explorer-controls-row">
+                                <input type="text" id="explorerSearch" class="explorer-search-input" placeholder="Search algorithm name, module, or problem statement..." oninput="AlgoStudio.filterExplorer()">
+                                <select id="explorerModuleFilter" class="explorer-filter-select" onchange="AlgoStudio.filterExplorer()">
+                                    <option value="all">All Modules (28)</option>
+                                    <option value="m1">M1: String Intelligence</option>
+                                    <option value="m2">M2: Document Intelligence</option>
+                                    <option value="m3">M3: Optimization Lab</option>
+                                    <option value="m4">M4: Network Flow</option>
+                                    <option value="m5">M5: Complexity Lab</option>
+                                    <option value="m6">M6: Parallel &amp; Randomized</option>
+                                </select>
+                            </div>
+                            <div class="explorer-sections-wrapper" id="explorerCardsGrid">
+                                <!-- Populated dynamically by AlgoStudio.renderExplorer() -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- ====================================================================== -->
+    <!-- 5. DSA ARCHITECTURE MATRIX MODAL (24 DSA MAPPING)                      -->
+    <!-- ====================================================================== -->
+    <div class="modal-screen hidden" id="dsaMatrixModal">
+        <div class="modal-window">
+            <div class="modal-header-bar">
+                <h3>EduTrack System &bull; 24 DSA Engine Architecture</h3>
+                <button class="btn-close-window" onclick="toggleDsaMatrix()">&times;</button>
+            </div>
+            <div class="modal-scroll-area">
+                <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:14px;">
+                    EduTrack integrates all 24 required Data Structures and Algorithms across 6 core modules. Click <strong>"Visualize"</strong> on any algorithm to open it directly in the interactive laboratory!
+                </p>
+                <table class="academic-table" style="border:1px solid var(--border-light);">
+                    <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Algorithm</th>
+                            <th>Complexity</th>
+                            <th>Academic Platform Functionality</th>
+                            <th>Interactive Lab</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- MODULE 1: STRING INTELLIGENCE -->
+                        <tr><td>M1 String</td><td><strong>Knuth-Morris-Pratt (KMP)</strong></td><td>O(N + M)</td><td>Course catalog keyword & query matching without text backtracking</td><td><button class="btn-table-action" onclick="openAlgoInLab('kmp')">▶ Visualize</button></td></tr>
+                        <tr><td>M1 String</td><td><strong>Z-Algorithm (Z-Function)</strong></td><td>O(N)</td><td>Detects repeated phrases and templates in thesis drafts</td><td><button class="btn-table-action" onclick="openAlgoInLab('z_algo')">▶ Visualize</button></td></tr>
+                        <tr><td>M1 String</td><td><strong>Rabin-Karp Rolling Hash</strong></td><td>Avg O(N + M)</td><td>Polynomial rolling hash search for course & exam codes</td><td><button class="btn-table-action" onclick="openAlgoInLab('rabin_karp')">▶ Visualize</button></td></tr>
+                        <tr><td>M1 String</td><td><strong>Aho-Corasick Multi-Pattern Trie</strong></td><td>O(N + &Sigma;M + Z)</td><td>Simultaneous multi-keyword academic dictionary scan</td><td><button class="btn-table-action" onclick="openAlgoInLab('aho_corasick')">▶ Visualize</button></td></tr>
+
+                        <!-- MODULE 2: SUFFIX STRUCTURES -->
+                        <tr><td>M2 Suffix</td><td><strong>Suffix Array (Doubling)</strong></td><td>O(N log² N)</td><td>Full-text indexing of research documents and syllabi</td><td><button class="btn-table-action" onclick="openAlgoInLab('suffix_array')">▶ Visualize</button></td></tr>
+                        <tr><td>M2 Suffix</td><td><strong>SA-IS (Induced Sorting)</strong></td><td>O(N) Linear</td><td>Linear-time S/L-type LMS bucket sorting for massive texts</td><td><button class="btn-table-action" onclick="openAlgoInLab('sais')">▶ Visualize</button></td></tr>
+                        <tr><td>M2 Suffix</td><td><strong>Kasai's LCP (Plagiarism)</strong></td><td>O(N)</td><td>Longest Common Prefix for cross-document similarity</td><td><button class="btn-table-action" onclick="openAlgoInLab('kasai_lcp')">▶ Visualize</button></td></tr>
+                        <tr><td>M2 Suffix</td><td><strong>Suffix Automaton (SAM / DAWG)</strong></td><td>O(N) Build / O(M)</td><td>Distinct vocabulary count & fast substring presence lookup</td><td><button class="btn-table-action" onclick="openAlgoInLab('suffix_automaton')">▶ Visualize</button></td></tr>
+
+                        <!-- MODULE 3: ADVANCED DYNAMIC PROGRAMMING -->
+                        <tr><td>M3 DP</td><td><strong>Levenshtein Distance</strong></td><td>O(N &times; M)</td><td>Edit distance autocorrect for misspelled student queries</td><td><button class="btn-table-action" onclick="openAlgoInLab('levenshtein')">▶ Visualize</button></td></tr>
+                        <tr><td>M3 DP</td><td><strong>Damerau-Levenshtein</strong></td><td>O(N &times; M)</td><td>Microgravity typing vibration adjacent swap correction</td><td><button class="btn-table-action" onclick="openAlgoInLab('damerau_levenshtein')">▶ Visualize</button></td></tr>
+                        <tr><td>M3 DP</td><td><strong>Matrix-Chain Multiplication</strong></td><td>O(N&sup3;)</td><td>Optimal parenthesization for analytics pipelines</td><td><button class="btn-table-action" onclick="openAlgoInLab('matrix_chain')">▶ Visualize</button></td></tr>
+                        <tr><td>M3 DP</td><td><strong>Bitmask DP (Traveling Pod Tour)</strong></td><td>O(N&sup2; &times; 2ᴺ)</td><td>Traveling Dean minimal propellant energy pod tour route</td><td><button class="btn-table-action" onclick="openAlgoInLab('bitmask_dp')">▶ Visualize</button></td></tr>
+                        <tr><td>M3 DP</td><td><strong>Optimal BST (OBST)</strong></td><td>O(N&sup3;)</td><td>Minimizes high-frequency course schedule query comparisons</td><td><button class="btn-table-action" onclick="openAlgoInLab('optimal_bst')">▶ Visualize</button></td></tr>
+
+                        <!-- MODULE 4: NETWORK FLOW -->
+                        <tr><td>M4 Flow</td><td><strong>Hopcroft-Karp Bipartite Matching</strong></td><td>O(E&radic;V)</td><td>Maximum faculty-to-course teaching allocation</td><td><button class="btn-table-action" onclick="openAlgoInLab('bipartite_matching')">▶ Visualize</button></td></tr>
+                        <tr><td>M4 Flow</td><td><strong>Ford-Fulkerson Algorithm (DFS)</strong></td><td>O(E &middot; |f*|)</td><td>Maximum passenger throughput across pressurized corridors</td><td><button class="btn-table-action" onclick="openAlgoInLab('ford_fulkerson')">▶ Visualize</button></td></tr>
+                        <tr><td>M4 Flow</td><td><strong>Edmonds-Karp Algorithm (BFS)</strong></td><td>O(V &middot; E&sup2;)</td><td>Shortest augmenting paths for airlock flow optimization</td><td><button class="btn-table-action" onclick="openAlgoInLab('edmonds_karp')">▶ Visualize</button></td></tr>
+                        <tr><td>M4 Flow</td><td><strong>Dinic's Algorithm (Blocking Flow)</strong></td><td>O(V&sup2;E)</td><td>Level graph blocking flows for campus distribution</td><td><button class="btn-table-action" onclick="openAlgoInLab('dinic')">▶ Visualize</button></td></tr>
+                        <tr><td>M4 Flow</td><td><strong>K&ouml;nig's Theorem (Staffing Duality)</strong></td><td>|MaxMatch| = |MVC|</td><td>Minimum vertex cover & max independent set staffing</td><td><button class="btn-table-action" onclick="openAlgoInLab('konig')">▶ Visualize</button></td></tr>
+
+                        <!-- MODULE 5: NP-COMPLETENESS & APPROXIMATIONS -->
+                        <tr><td>M5 NP</td><td><strong>DPLL SAT Solver (Timetabling)</strong></td><td>Exponential / Backtracking</td><td>Conflict-free examination timetabling satisfiability</td><td><button class="btn-table-action" onclick="openAlgoInLab('dpll_sat')">▶ Visualize</button></td></tr>
+                        <tr><td>M5 NP</td><td><strong>Karp Reduction (3-SAT &rarr; CLIQUE)</strong></td><td>Polynomial O(M&sup2;)</td><td>Graph transformation proving NP-completeness of CLIQUE</td><td><button class="btn-table-action" onclick="openAlgoInLab('reductions_3sat_clique')">▶ Visualize</button></td></tr>
+                        <tr><td>M5 NP</td><td><strong>Reduction Pipeline (CLIQUE &hArr; IS &hArr; VC)</strong></td><td>Polynomial O(V&sup2;)</td><td>Deep equivalence mapping across core NP problems</td><td><button class="btn-table-action" onclick="openAlgoInLab('reductions_pipeline')">▶ Visualize</button></td></tr>
+                        <tr><td>M5 NP</td><td><strong>Vertex Cover 2-Approximation</strong></td><td>Ratio &le; 2 &middot; OPT</td><td>Greedy maximal matching collision resolution for exam clashes</td><td><button class="btn-table-action" onclick="openAlgoInLab('vertex_cover_approx')">▶ Visualize</button></td></tr>
+
+                        <!-- MODULE 6: RANDOMIZED & PARALLEL ANALYTICS -->
+                        <tr><td>M6 Rand/Par</td><td><strong>Randomized QuickSort (3-Way)</strong></td><td>Expected O(N log N)</td><td>Leaderboard grade ranking with Dutch National Flag partition</td><td><button class="btn-table-action" onclick="openAlgoInLab('randomized_quicksort')">▶ Visualize</button></td></tr>
+                        <tr><td>M6 Rand/Par</td><td><strong>Reservoir Sampling (Algorithm R)</strong></td><td>O(1) Per Item</td><td>Fair uniform random sampling of continuous sensor streams</td><td><button class="btn-table-action" onclick="openAlgoInLab('reservoir_sampling')">▶ Visualize</button></td></tr>
+                        <tr><td>M6 Rand/Par</td><td><strong>Miller-Rabin Primality Test</strong></td><td>O(k log&sup3; N)</td><td>Cryptographic validation of institutional access tokens</td><td><button class="btn-table-action" onclick="openAlgoInLab('miller_rabin')">▶ Visualize</button></td></tr>
+                        <tr><td>M6 Rand/Par</td><td><strong>Blelloch Parallel Scan (Prefix Sum)</strong></td><td>Work O(N) / Span O(log N)</td><td>Work-efficient Up-Sweep and Down-Sweep prefix tree</td><td><button class="btn-table-action" onclick="openAlgoInLab('blelloch_scan')">▶ Visualize</button></td></tr>
+                        <tr><td>M6 Rand/Par</td><td><strong>Parallel ForkJoin Reduce</strong></td><td>Work O(N) / Span O(log N)</td><td>Multi-core divide-and-conquer binary GPA aggregation</td><td><button class="btn-table-action" onclick="openAlgoInLab('parallel_reduce')">▶ Visualize</button></td></tr>
+                        <tr><td>M6 Rand/Par</td><td><strong>Brent's Theorem Scalability Analyzer</strong></td><td>T_p &le; (W - D)/p + D</td><td>Calculates speedup and parallel efficiency across cluster cores</td><td><button class="btn-table-action" onclick="openAlgoInLab('brents_theorem')">▶ Visualize</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Controllers -->
+    <script src="algo-visualizer.js?v=7.0"></script>
+    <script src="app.js?v=7.0"></script>
+</body>
+</html>
